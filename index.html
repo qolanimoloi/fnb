@@ -40,6 +40,41 @@
     .note { font-size: 0.85rem; color: #666; margin-top: 8px; line-height: 1.4; }
     .methodology { background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px; padding: 16px; margin: 16px 0; }
     .methodology h4 { color: #495057; margin-bottom: 8px; }
+    
+    /* Filter controls styling */
+    .filter-controls { 
+      background: white; 
+      border-radius: 12px; 
+      padding: 16px; 
+      margin-bottom: 24px; 
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+    .filter-label {
+      font-weight: 600;
+      color: #2c7744;
+      margin-right: 8px;
+    }
+    .filter-checkbox {
+      margin-right: 6px;
+    }
+    .filter-group {
+      display: flex;
+      align-items: center;
+      margin-right: 16px;
+    }
+    .filter-btn {
+      padding: 8px 16px;
+      background: linear-gradient(135deg, #2c7744, #3d7a57);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+    }
   </style>
 </head>
 <body>
@@ -51,6 +86,53 @@
         Group Members: Malatji Lerato, Kateko Mgabe, Esther Olusanya, Qolani Moloi, Katlego Mpetsheni
       </div>
     </header>
+
+    <!-- Filter Controls -->
+    <div class="filter-controls">
+      <span class="filter-label">Show Sections:</span>
+      <div class="filter-group">
+        <input type="checkbox" id="showSummary" class="filter-checkbox" checked>
+        <label for="showSummary">Summary Cards</label>
+      </div>
+      <div class="filter-group">
+        <input type="checkbox" id="showPesticide" class="filter-checkbox" checked>
+        <label for="showPesticide">Pesticide Usage</label>
+      </div>
+      <div class="filter-group">
+        <input type="checkbox" id="showCropTrends" class="filter-checkbox" checked>
+        <label for="showCropTrends">Crop Trends</label>
+      </div>
+      <div class="filter-group">
+        <input type="checkbox" id="showCumulative" class="filter-checkbox" checked>
+        <label for="showCumulative">Cumulative Production</label>
+      </div>
+      <div class="filter-group">
+        <input type="checkbox" id="showSpread" class="filter-checkbox" checked>
+        <label for="showSpread">Spread Analysis</label>
+      </div>
+      <div class="filter-group">
+        <input type="checkbox" id="showTrendCompare" class="filter-checkbox" checked>
+        <label for="showTrendCompare">Trend Comparison</label>
+      </div>
+      <div class="filter-group">
+        <input type="checkbox" id="showCorrelation" class="filter-checkbox" checked>
+        <label for="showCorrelation">Correlation Analysis</label>
+      </div>
+      <div class="filter-group">
+        <input type="checkbox" id="showHeatmap" class="filter-checkbox" checked>
+        <label for="showHeatmap">Correlation Heatmap</label>
+      </div>
+      <div class="filter-group">
+        <input type="checkbox" id="showDataQuality" class="filter-checkbox" checked>
+        <label for="showDataQuality">Data Quality</label>
+      </div>
+      <div class="filter-group">
+        <button class="filter-btn" id="selectAllBtn">Select All</button>
+      </div>
+      <div class="filter-group">
+        <button class="filter-btn secondary" id="deselectAllBtn">Deselect All</button>
+      </div>
+    </div>
 
     <div class="summary-cards" id="summaryCards">
       <div class="card">
@@ -92,7 +174,7 @@
     </div>
 
     <!-- Section 4.1: Pesticide Use Over Time -->
-    <div class="chart-container">
+    <div class="chart-container" id="pesticideSection">
       <h2 class="chart-title">4.1 Pesticide Usage Over Time (2000–2023) <span class="pill">Report §4.1</span></h2>
       <canvas id="pesticideChart"></canvas>
       <div class="insights">
@@ -106,7 +188,7 @@
     </div>
 
     <!-- Section 4.2: Crop Production Trends -->
-    <div class="chart-container">
+    <div class="chart-container" id="cropTrendsSection">
       <h2 class="chart-title">4.2 Crop Production Trends by Individual Crop <span class="pill">Report §4.2</span></h2>
       <canvas id="cropChart"></canvas>
       <div class="insights">
@@ -118,7 +200,7 @@
     </div>
 
     <!-- Section 4.3: Cumulative Production -->
-    <div class="chart-row">
+    <div class="chart-row" id="cumulativeSection">
       <div class="chart-container">
         <h2 class="chart-title">4.3 Cumulative Crop Production Over Time <span class="pill">Report §4.3</span></h2>
         <canvas id="totalCropChart"></canvas>
@@ -129,7 +211,7 @@
       </div>
       
       <!-- Section 4.4: Annual Spread -->
-      <div class="chart-container">
+      <div class="chart-container" id="spreadSection">
         <h2 class="chart-title">4.4 Annual Production Spread Analysis <span class="pill">Report §4.4</span></h2>
         <canvas id="boxplotChart"></canvas>
         <div class="insights">
@@ -140,7 +222,7 @@
     </div>
 
     <!-- Section 5.4: Statistical Analysis -->
-    <div class="chart-row">
+    <div class="chart-row" id="trendCompareSection">
       <div class="chart-container">
         <h2 class="chart-title">5.4 Trend Comparison: Inputs vs Outputs <span class="pill">Report §5.4</span></h2>
         <canvas id="trendCompare"></canvas>
@@ -150,7 +232,7 @@
         </div>
       </div>
       
-      <div class="chart-container">
+      <div class="chart-container" id="correlationSection">
         <h2 class="chart-title">Correlation Analysis & Regression Model <span class="pill">Report §5.3</span></h2>
         <canvas id="correlationChart"></canvas>
         <div class="insights">
@@ -161,7 +243,7 @@
     </div>
 
     <!-- Correlation Heatmap -->
-    <div class="chart-container">
+    <div class="chart-container" id="heatmapSection">
       <h2 class="chart-title">Crop Correlation Matrix (Pairwise Analysis) <span class="pill">Report §5.4</span></h2>
       <div id="corrHeatmap"></div>
       <div class="legend">Correlation Scale: -1.0 (red) → 0.0 (white) → +1.0 (green)</div>
@@ -172,7 +254,7 @@
     </div>
 
     <!-- Section 4.5: Data Quality -->
-    <div class="chart-container">
+    <div class="chart-container" id="dataQualitySection">
       <h2 class="chart-title">4.5 Data Quality Assessment: Missing Values Analysis <span class="pill">Report §4.5 & §5.2</span></h2>
       <div id="missingHeatmap" class="small"></div>
       <div class="note">
@@ -526,7 +608,7 @@
       });
     }
 
-    function makeBoxProxy() {
+    function makeBoxplotChart() {
       const stats = years.map((_, i) => {
         const vals = crops.map(c => cropData[c][i]).filter(v => v != null);
         vals.sort((a, b) => a - b);
@@ -659,9 +741,9 @@
       return { slope, intercept };
     }
 
-    function makeCorrelation() {
+    function makeCorrelationChart() {
       const ctx = document.getElementById('correlationChart').getContext('2d');
-      charts.corrChart?.destroy();
+      charts.correlationChart?.destroy();
       
       const pts = years.map((_, i) => ({
         x: pesticides[i],
@@ -672,7 +754,7 @@
       const xs = [Math.min(...pesticides), Math.max(...pesticides)];
       const regLine = xs.map(x => ({ x, y: slope * x + intercept }));
       
-      charts.corrChart = new Chart(ctx, {
+      charts.correlationChart = new Chart(ctx, {
         type: 'scatter',
         data: {
           datasets: [
@@ -846,11 +928,14 @@
       makePesticideChart();
       makeCropChart();
       makeTotalChart();
-      makeBoxProxy();
+      makeBoxplotChart();
       makeTrendCompare();
-      makeCorrelation();
+      makeCorrelationChart();
       makeCorrHeatmap();
       makeMissingHeatmap();
+      
+      // Apply current filter settings
+      applyFilterSettings();
     }
 
     // Excel export function
@@ -882,6 +967,31 @@
       XLSX.writeFile(wb, 'SA_Agriculture_Analysis.xlsx');
     }
 
+    // Filter functionality
+    function applyFilterSettings() {
+      // Get all filter checkboxes
+      const showSummary = document.getElementById('showSummary').checked;
+      const showPesticide = document.getElementById('showPesticide').checked;
+      const showCropTrends = document.getElementById('showCropTrends').checked;
+      const showCumulative = document.getElementById('showCumulative').checked;
+      const showSpread = document.getElementById('showSpread').checked;
+      const showTrendCompare = document.getElementById('showTrendCompare').checked;
+      const showCorrelation = document.getElementById('showCorrelation').checked;
+      const showHeatmap = document.getElementById('showHeatmap').checked;
+      const showDataQuality = document.getElementById('showDataQuality').checked;
+      
+      // Apply visibility based on checkbox states
+      document.getElementById('summaryCards').style.display = showSummary ? 'grid' : 'none';
+      document.getElementById('pesticideSection').style.display = showPesticide ? 'block' : 'none';
+      document.getElementById('cropTrendsSection').style.display = showCropTrends ? 'block' : 'none';
+      document.getElementById('cumulativeSection').style.display = showCumulative ? 'grid' : 'none';
+      document.getElementById('spreadSection').style.display = showSpread ? 'block' : 'none';
+      document.getElementById('trendCompareSection').style.display = showTrendCompare ? 'grid' : 'none';
+      document.getElementById('correlationSection').style.display = showCorrelation ? 'block' : 'none';
+      document.getElementById('heatmapSection').style.display = showHeatmap ? 'block' : 'none';
+      document.getElementById('dataQualitySection').style.display = showDataQuality ? 'block' : 'none';
+    }
+
     // Event listeners
     document.getElementById('btnRegen').addEventListener('click', () => {
       ({ pesticidesRaw, cropRaw, pesticides, cropData } = buildData(withImputation));
@@ -895,6 +1005,26 @@
     });
 
     document.getElementById('btnDownload').addEventListener('click', exportExcel);
+    
+    // Filter control event listeners
+    const filterCheckboxes = document.querySelectorAll('.filter-checkbox');
+    filterCheckboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', applyFilterSettings);
+    });
+    
+    document.getElementById('selectAllBtn').addEventListener('click', () => {
+      filterCheckboxes.forEach(checkbox => {
+        checkbox.checked = true;
+      });
+      applyFilterSettings();
+    });
+    
+    document.getElementById('deselectAllBtn').addEventListener('click', () => {
+      filterCheckboxes.forEach(checkbox => {
+        checkbox.checked = false;
+      });
+      applyFilterSettings();
+    });
 
     // Initialize dashboard
     rebuildAll();
